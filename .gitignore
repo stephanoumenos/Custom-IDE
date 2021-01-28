@@ -1,4 +1,5 @@
 .vscode
+.eslintcache
 node_modules
 
 # Output

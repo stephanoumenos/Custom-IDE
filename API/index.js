@@ -5,6 +5,8 @@ const PORT = 5000
 const cors = require("cors");
 const bodyParser = require("body-parser")
 const multer = require('multer')
+const fs = require("fs")
+const path = require("path")
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -12,7 +14,10 @@ app.use(bodyParser.json())
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'tmp')
+        const grammarName = file.originalname.split(".")[0]
+        const _path = path.join("tmp", grammarName)
+        fs.mkdirSync(_path, { recursive: true })
+        cb(null, _path)
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)
